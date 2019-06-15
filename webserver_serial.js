@@ -8,7 +8,7 @@ var server = app.listen(portNumber, function () {
 });
 var io = require('socket.io').listen(server);
 
-const port = new SerialPort('COM3', { baudRate: 9600 });
+const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 });
 //READLINE
 const Readline = require('@serialport/parser-readline');
 const parser = port.pipe(new Readline({ delimiter: '\n' }));
