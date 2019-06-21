@@ -1,0 +1,2 @@
+#Ignore node modules recursive
+node_modules/
