@@ -1,2 +1,6 @@
 #Ignore node modules recursive
 node_modules/
+
+#Ignore .idea (phpstorm)
+.idea
+.idea/
