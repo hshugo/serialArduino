@@ -29,14 +29,13 @@ function moveDown(){
 <style>
 	.webcam {
 		display: flex;
-		flex-direction: column;
 		border: 0px solid blue;
 	}
 	.controls {
 		border: 1px solid #efefef;
 		padding: 5px;
-		width: 650px;
-		height: 490px;
+		width: 150px;
+		height: 100px;
 		display:flex;
 	    align-items: center;
 	    background: #ccc;
@@ -52,7 +51,7 @@ function moveDown(){
 		height:50px;
 		cursor: pointer;
 		z-index: 5;
-		opacity: 0.2;
+		opacity: 0.5;
 	  	filter: alpha(opacity=20);
 	}
 	.direction:hover {
@@ -68,7 +67,7 @@ function moveDown(){
 </style>
 <body>
 
-<iframe src=""></iframe>
+<iframe src="http://172.18.0.1:8080/javascript_simple.html" width="600" height="600" border="0" ></iframe>
 <div class="webcam">
 	<div class="controls">
 	  <img src="/img/left.png" class="direction" id="left" onclick="socket.emit('direction', { direction:moveLeft()});">
