@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html>
 <body>
-<h1>Control LED light</h1>
-<p><input type="checkbox" id="light"></p>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script> <!-- include socket.io client side script -->
+
+<script src="/socket.io/socket.io.js"></script> 
+
 <script>
-/*
-var socket = io(); //load socket.io-client and connect to the host that serves the page
-window.addEventListener("load", function(){ //when page loads
-  var lightbox = document.getElementById("light"); 
-  lightbox.addEventListener("change", function() { //add event listener for when checkbox changes
-    socket.emit("light", Number(this.checked)); //send button status to server (as 1 or 0)
-  });
-});
-socket.on('light', function (data) { //get button status from client
-  document.getElementById("light").checked = data; //change checkbox according to push button on Raspberry Pi
-  socket.emit("light", data); //send push button status to back to server
-});
-*/
+var socket = io();
+var izq_der=0;
+var arr_aba=0;
+function moveLeft(){
+	izq_der=izq_der-10;
+	return "L"+izq_der+"\n";//izq_der
+}
+function moveRight(){
+	izq_der=izq_der+10;
+	return "R"+izq_der+"\n";//izq_der
+}
+function moveUp(){
+	arr_aba=arr_aba+10;
+	return "U"+arr_aba+"\n";//izq_der
+}
+function moveDown(){
+	arr_aba=arr_aba-10;
+	return "D"+arr_aba+"\n";//izq_der
+}
 </script>
-
-
-
-
 
 <style>
 	.webcam {
 		display: flex;
-		flex-direction: column;
 		border: 0px solid blue;
 	}
 	.controls {
 		border: 1px solid #efefef;
 		padding: 5px;
-		width: 650px;
-		height: 490px;
+		width: 150px;
+		height: 100px;
 		display:flex;
 	    align-items: center;
 	    background: #ccc;
@@ -50,7 +51,7 @@ socket.on('light', function (data) { //get button status from client
 		height:50px;
 		cursor: pointer;
 		z-index: 5;
-		opacity: 0.2;
+		opacity: 0.5;
 	  	filter: alpha(opacity=20);
 	}
 	.direction:hover {
@@ -66,20 +67,22 @@ socket.on('light', function (data) { //get button status from client
 </style>
 <body>
 
-<iframe src=""></iframe>
+<iframe src="http://172.18.0.1:8080/javascript_simple.html" width="600" height="600" border="0" ></iframe>
 <div class="webcam">
 	<div class="controls">
-	  <img src="left.png" class="direction" id="left">
+	  <img src="/img/left.png" class="direction" id="left" onclick="socket.emit('direction', { direction:moveLeft()});">
 	  <div class="direction-center">
-		<img src="up.png" class="direction" id="up">
-		<img src="pause.jpeg" class="direction hide" id="pause" >
-		<img src="play.png" class="direction hide" id="play" >
-		<img src="down.png" class="direction" id="down">
+		<img src="/img/up.png" class="direction" id="up" onclick="socket.emit('direction', { direction:moveUp()});">
+		<img src="img/pause.jpeg" class="direction hide" id="pause" onclick="socket.emit('direction', { direction:'pause'});">
+		<img src="img/play.png" class="direction hide" id="play" onclick="socket.emit('direction', { direction:'play'});">
+		<img src="img/down.png" class="direction" id="down" onclick="socket.emit('direction', { direction:moveDown()});">
 	  </div>
-	  <img src="right.png" class="direction" id="right">
+	  <img src="img/right.png" class="direction" id="right" onclick="socket.emit('direction', { direction:moveRight()});">
 	</div>
 </div>
 <script type="text/javascript">
+
+	/*
   
   	function clear() {
   		document.querySelector("#pause").classList.remove("show");
@@ -107,7 +110,7 @@ socket.on('light', function (data) { //get button status from client
           createImageLayer();
         });
     });
-
+	*/
 </script>
 
 </html>
