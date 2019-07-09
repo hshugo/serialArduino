@@ -3,10 +3,36 @@ var express = require('express');
 var path = require('path');
 var app = express();
 var portNumber = 3000;
-var server = app.listen(portNumber, function () {
+
+
+
+var https = require('https');
+var fs = require('fs');
+//var app = require('express')();
+var options = {
+key: fs.readFileSync('./public/ssl/server.key'),
+cert: fs.readFileSync('./public/ssl/server.crt')
+};
+
+/*
+app.get('index.html', function (req, res) {
+      res.send('Hola Mundo!!! Estamos usando https.');
+});
+
+https.createServer(options, app).listen(3001, function () {
+      console.log('Iniciado!');
+});
+
+*/
+
+
+var server = https.createServer(options, app).listen(portNumber, function () {
   console.log('App listening on port '+portNumber+'!');
 });
 var io = require('socket.io').listen(server);
+
+
+
 
 const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 });
 //READLINE

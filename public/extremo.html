@@ -66,8 +66,8 @@ function moveDown(){
 	}
 </style>
 <body>
-
-<video 	id="vidDisplay" autoplay="true" controls>No soporta Video</video>
+	<iframe src="https://localhost:3000/index.html"></iframe>	
+<video id="vidDisplay" autoplay="true" controls>No soporta Video</video>
 <!--<iframe src="http://172.18.0.1:8080/javascript_simple.html" width="600" height="600" border="0" ></iframe>-->
 <div class="webcam">
 	<div class="controls">
@@ -80,8 +80,22 @@ function moveDown(){
 	  </div>
 	  <img src="img/right.png" class="direction" id="right" onclick="socket.emit('direction', { direction:moveRight()});">
 	</div>
-</div>
+</div>	
 <script type="text/javascript">
+	function hasGetUserMedia() {
+	  // Note: Opera builds are unprefixed.
+	  return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+	            navigator.mozGetUserMedia || navigator.msGetUserMedia);
+	}
+
+	if (hasGetUserMedia()) {
+	  // Good to go!
+	  alert("ESTA OKA!!");
+	} else {
+	  alert('getUserMedia() is not supported in your browser');
+	}
+
+
 	window.URL=window.URL || window.webkitURL ;
 	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia ||  
 	navigator.msGetUserMedia || navigator.oGetUSerMedia;
@@ -89,14 +103,16 @@ function moveDown(){
 			navigator.getUserMedia({audio:true, video:true}, handleVideo, videoError);
 		}
 		function handleVideo(stream){
+			alert("ENTRO");
 			console.log("EL STREAM", stream);
 			document.querySelector('video').srcObject = stream;//window.URL.createObjectURL(stream);
 		}
 
 		function videoError(e){
 			alert("Error");
-		}	
+		}
 
+	
 	/*
   
   	function clear() {
